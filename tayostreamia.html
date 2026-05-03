@@ -1,0 +1,480 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tayostreamia - Watch • Stream • Discover</title>
+    <!-- Insert exact AdSense script requested -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6911328970302566"
+    crossorigin="anonymous"></script>
+    <style>
+        /* CSS Reset and Variables */
+        :root {
+            --bg-black: #000000;
+            --bg-dark-grey: #111111;
+            --red-neon: #ff0000;
+            --red-deep: #cc0000;
+            --text-white: #ffffff;
+            --text-grey: #a0a0a0;
+            --neon-glow: 0 0 15px rgba(255, 0, 0, 0.7);
+            --neon-glow-strong: 0 0 25px rgba(255, 0, 0, 0.9);
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-black);
+            font-family: var(--font-family);
+            color: var(--text-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Reusable UI Elements */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 0.9rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--red-neon);
+            color: white;
+            box-shadow: var(--neon-glow);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--red-deep);
+            box-shadow: var(--neon-glow-strong);
+        }
+
+        .btn-secondary {
+            border: 2px solid var(--text-white);
+            color: white;
+            background: rgba(0,0,0,0.3);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--red-neon);
+            color: var(--red-neon);
+            background: rgba(255,0,0,0.1);
+        }
+
+        /* Custom Logo Font/Style inspired by 'Stream Hub' */
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: white;
+            letter-spacing: -2px;
+            text-shadow: 0 0 10px rgba(255,0,0,0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span.hub {
+            color: var(--red-neon);
+            text-shadow: var(--neon-glow);
+        }
+
+        /* Modern Navigation */
+        nav {
+            background: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .nav-links ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: var(--text-grey);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links li a:hover,
+        .nav-links li a.active {
+            color: var(--red-neon);
+            text-shadow: var(--neon-glow);
+        }
+
+        .nav-auth ul {
+            display: flex;
+            gap: 15px;
+            list-style: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: radial-gradient(circle at center, #220000 0%, #000000 70%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-content {
+            margin-bottom: 50px;
+        }
+
+        .hero .logo {
+            font-size: 4.5rem;
+            margin-bottom: 10px;
+        }
+
+        .hero .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-grey);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 20px;
+        }
+
+        /* Device Showcase Section */
+        .showcase {
+            height: 60vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            position: relative;
+            padding-bottom: 50px;
+        }
+
+        .mockup {
+            transition: transform 0.5s ease;
+        }
+
+        .mockup:hover {
+            transform: scale(1.02);
+        }
+
+        /* Style the devices based on image presentation */
+        #laptop-mockup {
+            width: 700px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+            z-index: 20;
+        }
+
+        #phone-mockup {
+            width: 150px;
+            box-shadow: -10px 10px 30px rgba(0,0,0,0.5);
+            position: absolute;
+            left: calc(50% + 280px);
+            bottom: 30px;
+            z-index: 30;
+        }
+
+        #tablet-mockup {
+            width: 250px;
+            box-shadow: 10px 10px 40px rgba(0,0,0,0.5);
+            position: absolute;
+            right: calc(50% + 320px);
+            bottom: 30px;
+            z-index: 10;
+        }
+
+        /* Content Carousels */
+        .section-carousel {
+            padding: 60px 50px;
+            background-color: var(--bg-dark-grey);
+            overflow: hidden;
+        }
+
+        .section-carousel h2 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: var(--text-white);
+            border-left: 4px solid var(--red-neon);
+            padding-left: 15px;
+        }
+
+        .carousel-items {
+            display: flex;
+            gap: 20px;
+            cursor: pointer;
+        }
+
+        .movie-card {
+            flex: 0 0 calc(16.666% - 17px);
+            aspect-ratio: 2/3;
+            background-color: #222;
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .movie-card:hover {
+            border-color: var(--red-neon);
+            transform: translateY(-5px);
+            box-shadow: var(--neon-glow);
+        }
+
+        /* Genres specific styling */
+        .genres-carousel .movie-card {
+            background: linear-gradient(45deg, var(--red-deep), #220000);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 50px;
+            background-color: var(--bg-black);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .features h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            max-width: 600px;
+            text-shadow: var(--neon-glow);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+            max-width: 1200px;
+        }
+
+        .feature-block {
+            background-color: var(--bg-dark-grey);
+            padding: 40px;
+            border-radius: 8px;
+            border: 1px solid #222;
+            transition: all 0.3s ease;
+        }
+
+        .feature-block:hover {
+            border-color: var(--red-deep);
+            box-shadow: var(--neon-glow);
+        }
+
+        .feature-block h3 {
+            color: var(--red-neon);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            text-shadow: var(--neon-glow);
+        }
+
+        .feature-block p {
+            color: var(--text-grey);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 50px;
+            background-color: var(--bg-black);
+            border-top: 1px solid #222;
+            text-align: center;
+            color: var(--text-grey);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            #laptop-mockup { width: 500px; }
+            #phone-mockup { left: calc(50% + 200px); }
+            #tablet-mockup { right: calc(50% + 220px); }
+        }
+
+        @media (max-width: 900px) {
+            .nav-links ul, .nav-auth ul { gap: 10px; }
+            .hero .logo { font-size: 3rem; }
+            #phone-mockup, #tablet-mockup { display: none; }
+            #laptop-mockup { width: 90%; margin: auto; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <nav>
+        <div class="logo">
+            Tayo<span class="hub">streamia</span>
+        </div>
+        <div class="nav-links">
+            <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="movies.html">Movies</a></li>
+                <li><a href="series.html">Series</a></li>
+                <li><a href="anime.html">Anime</a></li>
+                <li><a href="downloads.html">Downloads</a></li>
+            </ul>
+        </div>
+        <div class="nav-auth">
+            <ul>
+                <li><a href="login.html" class="btn btn-secondary">Login</a></li>
+                <li><a href="signup.html" class="btn btn-primary">Sign Up</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <div class="logo">
+                Tayo<span class="hub">streamia</span>
+            </div>
+            <p class="subtitle">Watch • Stream • Discover</p>
+            <div class="hero-ctas">
+                <a href="watch.html" class="btn btn-primary">Watch Now</a>
+                <a href="#downloads" class="btn btn-secondary">Download App</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Device Showcase (matches reference layout) -->
+    <section class="showcase">
+        <img src="img/tablet-dashboard.png" alt="Tayostreamia Tablet Dashboard" id="tablet-mockup" class="mockup">
+        <img src="img/laptop-dashboard.png" alt="Tayostreamia Laptop Dashboard" id="laptop-mockup" class="mockup">
+        <img src="img/phone-app.png" alt="Tayostreamia Phone App" id="phone-mockup" class="mockup">
+    </section>
+
+    <!-- Content Carousels -->
+    <main>
+        <section class="section-carousel trending-movies">
+            <h2>Trending Movies</h2>
+            <div class="carousel-items">
+                <!-- Sample Movie Cards -->
+                <div class="movie-card"><img src="img/poster1.jpg" alt="Movie 1"></div>
+                <div class="movie-card"><img src="img/poster2.jpg" alt="Movie 2"></div>
+                <div class="movie-card"><img src="img/poster3.jpg" alt="Movie 3"></div>
+                <div class="movie-card"><img src="img/poster4.jpg" alt="Movie 4"></div>
+                <div class="movie-card"><img src="img/poster5.jpg" alt="Movie 5"></div>
+                <div class="movie-card"><img src="img/poster6.jpg" alt="Movie 6"></div>
+            </div>
+        </section>
+
+        <section class="section-carousel popular-tv">
+            <h2>Popular TV Shows</h2>
+            <div class="carousel-items">
+                <!-- Sample TV Cards -->
+                <div class="movie-card"><img src="img/tv1.jpg" alt="TV Show 1"></div>
+                <div class="movie-card"><img src="img/tv2.jpg" alt="TV Show 2"></div>
+                <div class="movie-card"><img src="img/tv3.jpg" alt="TV Show 3"></div>
+                <div class="movie-card"><img src="img/tv4.jpg" alt="TV Show 4"></div>
+                <div class="movie-card"><img src="img/tv5.jpg" alt="TV Show 5"></div>
+                <div class="movie-card"><img src="img/tv6.jpg" alt="TV Show 6"></div>
+            </div>
+        </section>
+
+        <!-- Repeat for Anime Zone, New Releases, Top Rated -->
+        <section class="section-carousel anime-zone">
+            <h2>Anime Zone</h2>
+            <div class="carousel-items">
+                <div class="movie-card"><img src="img/anime1.jpg" alt="Anime 1"></div>
+                <div class="movie-card"><img src="img/anime2.jpg" alt="Anime 2"></div>
+                <!-- ... -->
+            </div>
+        </section>
+
+        <!-- Genres Carousel -->
+        <section class="section-carousel genres-carousel">
+            <h2>Genres</h2>
+            <div class="carousel-items">
+                <div class="movie-card"><span>Action</span></div>
+                <div class="movie-card"><span>Sci-Fi</span></div>
+                <div class="movie-card"><span>Horror</span></div>
+                <div class="movie-card"><span>Comedy</span></div>
+                <div class="movie-card"><span>Thriller</span></div>
+                <div class="movie-card"><span>Drama</span></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Features Section (text blocks) -->
+    <section class="features">
+        <h2>All Your Entertainment In One App</h2>
+        <p>A seamless, high-performance experience across all your devices.</p>
+        
+        <div class="features-grid">
+            <div class="feature-block">
+                <h3>HD Streaming</h3>
+                <p>Enjoy your favorite movies and shows in crystal clear high definition.</p>
+            </div>
+            <div class="feature-block">
+                <h3>Fast Servers</h3>
+                <p>Lightning fast connection ensures you never wait for content to load.</p>
+            </div>
+            <div class="feature-block">
+                <h3>No Lag Experience</h3>
+                <p>Optimized buffers mean smooth playback, every time.</p>
+            </div>
+            <div class="feature-block">
+                <h3>Download Offline</h3>
+                <p>Take your entertainment anywhere. Download and watch without internet.</p>
+            </div>
+            <div class="feature-block">
+                <h3>Multi Device Access</h3>
+                <p>Pick up exactly where you left off on TV, laptop, or phone.</p>
+            </div>
+            <div class="feature-block">
+                <h3>Discover</h3>
+                <p>Intelligent recommendations help you find your next obsession.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="logo" style="justify-content: center; font-size: 1.5rem; margin-bottom: 10px;">
+            Tayo<span class="hub">streamia</span>
+        </div>
+        <p>Copyright &copy; 2023 Tayostreamia.com. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
